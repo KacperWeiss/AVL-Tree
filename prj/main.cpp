@@ -1,6 +1,5 @@
 #include <iostream>
-
-using namespace std;
+#include "inc/node.hpp"
 
 void showMenu(){
 
@@ -10,6 +9,7 @@ void showMenu(){
 
 int main(){
 
-
+Node node;
+node.test();
 
 }
