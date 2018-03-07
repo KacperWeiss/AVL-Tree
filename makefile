@@ -3,17 +3,17 @@ CPP = g++ -Wall -pedantic -std=c++11 -c -g -Iinc
 __start__: AVL-Tree
 	./AVL-Tree
 
-AVL-Tree: obj obj/main.o obj/node.o
-	g++ obj/main.o obj/node.o -o AVL-Tree
+AVL-Tree: prj/obj prj/obj/main.o prj/obj/node.o
+	g++ prj/obj/main.o prj/obj/node.o -o AVL-Tree
 
-obj:
-	mkdir obj
+prj/obj:
+	mkdir prj/obj
 
-obj/main.o: main.cpp
-	${CPP} main.cpp -o obj/main.o
+prj/obj/main.o: prj/main.cpp
+	${CPP} prj/main.cpp -o prj/obj/main.o
 
-obj/node.o: inc/node.hpp src/node.cpp
-	${CPP} src/node.cpp -o obj/node.o
+prj/obj/node.o: prj/inc/node.hpp prj/src/node.cpp
+	${CPP} prj/src/node.cpp -o prj/obj/node.o
 
 clear:
-	rm -rf obj
+	rm -rf prj/obj
