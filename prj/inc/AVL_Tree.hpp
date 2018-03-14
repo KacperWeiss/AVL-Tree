@@ -27,21 +27,68 @@ class AVL_Tree {
         // - it returns root of the tree
         Node<T>* insert(Node<T>* node, T value); 
 
+        // Private method that's used to update height and bf values
+        // of the node.
+        // - it returns nothing
         void update(Node<T>* node);
 
+        // Private method that decides if node needs to be rebalanced
+        // if so, it calls one of the functions:
+        // -> leftLeftCase(Node<T>* node) if node's balance factor is 
+        //    equal to -2, and it's left child have bf less or equal to 0
+        // -> leftRightCase(Node<T>* node) if node's balance factor is 
+        //    equal to -2, and it's left child have bf greater than 0
+        // -> rightLeftCase(Node<T>* node) if node's balance factor is 
+        //    equal to 2, and it's right child have bf less or equal to 0
+        // -> rightRightCase(Node<T>* node) if node's balance factor is 
+        //    equal to 2, and it's right child have bf greater than 0
+        // after operation node is balanced and method returns node that
+        // should be placed in position of node that required rebalance.
+        // - it returns node that should be in this place of the tree
         Node<T>* rebalance(Node<T>* node);
 
+        // Private method called by rebalance(Node<T>* node) private method
+        // it represents operations that need to be done in order to rebalance
+        // the node. In this case it rotates right.
+        // - returns left node in place of parent with parent on right ptr
         Node<T>* leftLeftCase(Node<T>* node);
 
+        // Private method called by rebalance(Node<T>* node) private method
+        // it represents operations that need to be done in order to rebalance
+        // the node. In this case it rotates right.
+        // - returns left node in place of parent with old parent on right ptr
         Node<T>* leftRightCase(Node<T>* node);
 
+        // Private method called by rebalance(Node<T>* node) private method
+        // it represents operations that need to be done in order to rebalance
+        // the node. In this case it's right child rotates right, and then it calls
+        // rightRightCase(Node<T>* node) on return
+        // - returns rightRightCase(Node<T>* node) result
         Node<T>* rightLeftCase(Node<T>* node);
 
+        // Private method called by rebalance(Node<T>* node) private method
+        // it represents operations that need to be done in order to rebalance
+        // the node. In this case it rotates left.
+        // - returns right node in place of parent with parent on left ptr
         Node<T>* rightRightCase(Node<T>* node);
 
-        Node<T>* leftRotation(Node<T>* node);
-
+        // Private method called by methods that handle rebalance cases.
+        // It replaces parent node with it's left node, then new parent's
+        // right child node becomes left node of the old parent and at the
+        // end old parent becomes right child of new parent node. After that
+        // new child and parent nodes are both updated with new height and 
+        // balance factor values
+        // - returns new parent node 
         Node<T>* rightRotation(Node<T>* node);
+
+        // Private method called by methods that handle rebalance cases.
+        // It replaces parent node with it's right node, then new parent's
+        // left child node becomes right node of the old parent and at the
+        // end old parent becomes left child of new parent node. After that
+        // new child and parent nodes are both updated with new height and 
+        // balance factor values
+        // - returns new parent node
+        Node<T>* leftRotation(Node<T>* node);
 
     public:
 
@@ -190,40 +237,50 @@ Node<T>* AVL_Tree<T>::leftLeftCase(Node<T>* node){
 
 template <class T>
 Node<T>* AVL_Tree<T>::leftRightCase(Node<T>* node){
-    
+
     node->left = leftRotation(node->left);
     return leftLeftCase(node);
-    
+
 }
 
 template <class T>
 Node<T>* AVL_Tree<T>::rightLeftCase(Node<T>* node){
-    
 
+    node->right = rightRotation(node->right);
+    return rightRightCase(node);
 
 }
 
 template <class T>
 Node<T>* AVL_Tree<T>::rightRightCase(Node<T>* node){
-    
 
-
-}
-
-template <class T>
-Node<T>* AVL_Tree<T>::leftRotation(Node<T>* node){
-    
-
+    return leftRotation(node);
 
 }
 
 template <class T>
 Node<T>* AVL_Tree<T>::rightRotation(Node<T>* node){
-    
 
+    Node<T>* newParent = node->left;
+    node->left = newParent->right;
+    newParent->right = node;
+    update(node);
+    update(newParent);
+    return newParent;
 
 }
 
+template <class T>
+Node<T>* AVL_Tree<T>::leftRotation(Node<T>* node){
+
+    Node<T>* newParent = node->right;
+    node->right = newParent->left;
+    newParent->left = node;
+    update(node);
+    update(newParent);
+    return newParent;    
+
+}
 
 
 #endif
