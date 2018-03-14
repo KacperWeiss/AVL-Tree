@@ -5,8 +5,7 @@
 
 template <class T>
 class Node{
-    private:
-
+    
     public:
 
         // Comparable data contained in this node
