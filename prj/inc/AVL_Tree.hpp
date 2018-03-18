@@ -184,7 +184,7 @@ Node<T>* AVL_Tree<T>::insert(Node<T>* node, T value){
     if(node == NULL)
         return new Node<T>(value);
 
-    T comparable = value - node->data;
+    auto comparable = value - node->data;
 
     if(comparable < 0)
         node->left = insert(node->left, value);
@@ -221,7 +221,7 @@ void AVL_Tree<T>::update(Node<T>* node){
 
     node->height = 1 + higher;
 
-    node->bf = leftNodeHeight - rightNodeHeight;
+    node->bf = rightNodeHeight - leftNodeHeight;
 
 };
 
@@ -326,7 +326,57 @@ Node<T>* AVL_Tree<T>::deleteValue(Node<T>* node, T value){
     if(node == NULL)
         return NULL;
 
-    
+    auto comparable = value - node->data;
+
+    if(comparable < 0)
+        node->left = deleteValue(node->left, value);
+
+    else if(comparable > 0)
+        node->right = deleteValue(node->right, value);
+
+    else{
+
+        if(node->left == NULL)
+            return node->right;
+
+        if(node->right == NULL)
+            return node->left;
+
+        if(node->bf >= 0){
+            
+            Node<T>* temporaryNodePtr = node->right;
+            T replacedNodeData = temporaryNodePtr->data;
+
+            while(temporaryNodePtr->left == NULL){
+
+                temporaryNodePtr = temporaryNodePtr->left;
+                replacedNodeData = temporaryNodePtr->data;
+
+            }
+
+            node->right = deleteValue(node->right, replacedNodeData);
+
+        } else {
+
+            Node<T>* temporaryNodePtr = node->left;
+            T replacedNodeData = temporaryNodePtr->data;
+
+            while(temporaryNodePtr->right == NULL){
+
+                temporaryNodePtr = temporaryNodePtr->right;
+                replacedNodeData = temporaryNodePtr->data;
+
+            }
+
+            node->left = deleteValue(node->left, replacedNodeData);
+
+        }
+
+    }
+
+    update(node);
+
+    return rebalance(node);
 
 };
 
