@@ -12,13 +12,13 @@ class AVL_Tree {
         // Variable solely for test purposes
         int nodeCount;
 
-        // Private method called by contains(T value) public method
+        // Private method called first by contains(T value) public method
         // is used to validate if value already exists in the tree:
         // - if value doesn't exist in the tree it returns false
         // - if value already exists in the tree returns true
         bool contains(Node<T>* node, T value);
 
-        // Private method called by insert(T value) public method
+        // Private method called first by insert(T value) public method
         // is used to insert new Node with data to suitable place
         // then it uses private methods update(node) and rebalance(node),
         // which updates height and balancefactor of every node in path
@@ -90,7 +90,21 @@ class AVL_Tree {
         // - returns new parent node
         Node<T>* leftRotation(Node<T>* node);
 
+        // Private method called first by deleteValue(T value) public method
+        // is used to delete existing nodes and then rearange AVL_Tree back
+        // to balance by using private methods update(node) and rebalance(node)
+        // which updates height and balancefactor of every node affected by
+        // removal of selected value.
+        // - returns root of the tree
+        Node<T>* deleteValue(Node<T>* node, T value);
+
     public:
+
+        // Constructor creates new AVL_Tree with it's root set to null
+        AVL_Tree(): root(NULL) {}
+
+        // Destructor for AVL Tree - it destructs all of the nodes by recursion
+        ~AVL_Tree(){ delete root; }
 
         // Root node of the AVL_Tree
         Node<T>* root;
@@ -113,6 +127,14 @@ class AVL_Tree {
         // - if value already exists in the tree, or value is null it returns false
         // - if value doesn't exist in the tree it returns true
         bool insert(T value);
+
+        // Public method that removes node with selected value. First it validate if
+        // value which has to be removed is not null, then it validates if value exists
+        // in the tree. If value exists, then private method deleteValue(Node<T> node, T value)
+        // is called and it decrements nodeCount value:
+        // - if value does not exists in the tree, or value is null it returns false
+        // - if value exist in the tree it returns true once value is removed
+        bool deleteValue(T value);
 
 };
 
@@ -137,7 +159,7 @@ bool AVL_Tree<T>::contains(Node<T>* node, T value){
     if(node == NULL)
         return false;
 
-    T comparable = value - node->data;
+    auto comparable = value - node->data;
 
     if(comparable < 0)
         return contains(node->left, value);
@@ -171,7 +193,7 @@ Node<T>* AVL_Tree<T>::insert(Node<T>* node, T value){
         node->right = insert(node->right, value);
 
     update();
-    // return rebalance();
+    return rebalance();
 };
 
 template <class T>
@@ -187,6 +209,7 @@ bool AVL_Tree<T>::insert(T value){
     }
 
     return false;
+
 };
 
 template <class T>
@@ -233,7 +256,7 @@ Node<T>* AVL_Tree<T>::leftLeftCase(Node<T>* node){
 
     return rightRotation(node);
 
-}
+};
 
 template <class T>
 Node<T>* AVL_Tree<T>::leftRightCase(Node<T>* node){
@@ -241,7 +264,7 @@ Node<T>* AVL_Tree<T>::leftRightCase(Node<T>* node){
     node->left = leftRotation(node->left);
     return leftLeftCase(node);
 
-}
+};
 
 template <class T>
 Node<T>* AVL_Tree<T>::rightLeftCase(Node<T>* node){
@@ -249,14 +272,14 @@ Node<T>* AVL_Tree<T>::rightLeftCase(Node<T>* node){
     node->right = rightRotation(node->right);
     return rightRightCase(node);
 
-}
+};
 
 template <class T>
 Node<T>* AVL_Tree<T>::rightRightCase(Node<T>* node){
 
     return leftRotation(node);
 
-}
+};
 
 template <class T>
 Node<T>* AVL_Tree<T>::rightRotation(Node<T>* node){
@@ -268,7 +291,7 @@ Node<T>* AVL_Tree<T>::rightRotation(Node<T>* node){
     update(newParent);
     return newParent;
 
-}
+};
 
 template <class T>
 Node<T>* AVL_Tree<T>::leftRotation(Node<T>* node){
@@ -280,7 +303,21 @@ Node<T>* AVL_Tree<T>::leftRotation(Node<T>* node){
     update(newParent);
     return newParent;    
 
-}
+};
 
+template <class T>
+bool AVL_Tree<T>::deleteValue(T value){
+
+    if(value == NULL)
+        return false;
+
+    if(contains(root, value)){
+        root = deleteValue(root, value);
+        nodeCount--;
+        return true;
+    }
+    
+    return false;
+};
 
 #endif

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "inc/node.hpp"
+#include "inc/AVL_Tree.hpp"
 
 void showMenu(){
 
@@ -9,7 +10,6 @@ void showMenu(){
 
 int main(){
 
-Node node;
-node.test();
+
 
 }

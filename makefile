@@ -1,4 +1,4 @@
-CPP = g++ -Wall -pedantic -std=c++11 -c -g -Iinc
+CPP = g++ -Wall -pedantic -std=c++17 -c -g -Iinc
 
 __start__: AVL-Tree
 	./AVL-Tree
