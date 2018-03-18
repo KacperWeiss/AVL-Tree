@@ -320,4 +320,14 @@ bool AVL_Tree<T>::deleteValue(T value){
     return false;
 };
 
+template <class T>
+Node<T>* AVL_Tree<T>::deleteValue(Node<T>* node, T value){
+
+    if(node == NULL)
+        return NULL;
+
+    
+
+};
+
 #endif
