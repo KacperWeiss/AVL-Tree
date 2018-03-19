@@ -8,6 +8,9 @@ template <class T>
 class AVL_Tree {
 
     private:
+
+        // Root node of the AVL_Tree
+        Node<T>* root;
     
         // Variable solely for test purposes
         int nodeCount;
@@ -107,9 +110,6 @@ class AVL_Tree {
 
         // Destructor for AVL Tree - it destructs all of the nodes by recursion
         ~AVL_Tree(){ delete root; }
-
-        // Root node of the AVL_Tree
-        Node<T>* root;
 
         // Method for test purposes, it returns height of the tree
         int height();
@@ -354,7 +354,7 @@ Node<T>* AVL_Tree<T>::deleteValue(Node<T>* node, T value){
             Node<T>* temporaryNodePtr = node->right;
             T replacedNodeData = temporaryNodePtr->data;
 
-            while(temporaryNodePtr->left == NULL){
+            while(temporaryNodePtr->left != NULL){
 
                 temporaryNodePtr = temporaryNodePtr->left;
                 replacedNodeData = temporaryNodePtr->data;
@@ -368,7 +368,7 @@ Node<T>* AVL_Tree<T>::deleteValue(Node<T>* node, T value){
             Node<T>* temporaryNodePtr = node->left;
             T replacedNodeData = temporaryNodePtr->data;
 
-            while(temporaryNodePtr->right == NULL){
+            while(temporaryNodePtr->right != NULL){
 
                 temporaryNodePtr = temporaryNodePtr->right;
                 replacedNodeData = temporaryNodePtr->data;
