@@ -1,7 +1,7 @@
 CPP = g++ -Wall -pedantic -std=c++17 -c -g -Iinc
 
-__start__: clear AVL-Tree
-	./AVL-Tree
+# __start__: clear AVL-Tree
+# 	./AVL-Tree
 
 AVL-Tree: prj/obj prj/obj/main.o 
 	g++ prj/obj/main.o -o AVL-Tree

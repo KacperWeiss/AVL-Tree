@@ -98,6 +98,8 @@ class AVL_Tree {
         // - returns root of the tree
         Node<T>* deleteValue(Node<T>* node, T value);
 
+        bool printTree(Node<T>* node);
+
     public:
 
         // Constructor creates new AVL_Tree with it's root set to null
@@ -136,6 +138,9 @@ class AVL_Tree {
         // - if value exist in the tree it returns true once value is removed
         bool deleteValue(T value);
 
+        // Public method that shows tree structure
+        bool printTree();
+
 };
 
 template <class T>
@@ -146,7 +151,7 @@ int AVL_Tree<T>::height(){
 
     return root->height;
 
-};
+}
 
 template <class T>
 int AVL_Tree<T>::size(){
@@ -169,14 +174,14 @@ bool AVL_Tree<T>::contains(Node<T>* node, T value){
     
     return true;
 
-};
+}
 
 template <class T>
 bool AVL_Tree<T>::contains(T value){
 
     return contains(root, value);
 
-};
+}
 
 template <class T>
 Node<T>* AVL_Tree<T>::insert(Node<T>* node, T value){
@@ -192,9 +197,10 @@ Node<T>* AVL_Tree<T>::insert(Node<T>* node, T value){
     else
         node->right = insert(node->right, value);
 
-    update();
-    return rebalance();
-};
+    update(node);
+    return rebalance(node);
+
+}
 
 template <class T>
 bool AVL_Tree<T>::insert(T value){
@@ -210,7 +216,7 @@ bool AVL_Tree<T>::insert(T value){
 
     return false;
 
-};
+}
 
 template <class T>
 void AVL_Tree<T>::update(Node<T>* node){
@@ -223,14 +229,14 @@ void AVL_Tree<T>::update(Node<T>* node){
 
     node->bf = rightNodeHeight - leftNodeHeight;
 
-};
+}
 
 template <class T>
 Node<T>* AVL_Tree<T>::rebalance(Node<T>* node){
 
     if(node->bf == -2){
 
-        if(node->left->bf <= 0)
+        if(node->left->bf >= 0)
             return leftLeftCase(node);
 
         else
@@ -239,7 +245,7 @@ Node<T>* AVL_Tree<T>::rebalance(Node<T>* node){
     }
     if(node->bf == 2){
 
-        if(node->right->bf >= 0)
+        if(node->right->bf <= 0)
             return rightLeftCase(node);
 
         else
@@ -249,14 +255,14 @@ Node<T>* AVL_Tree<T>::rebalance(Node<T>* node){
 
     return node;
 
-};
+}
 
 template <class T>
 Node<T>* AVL_Tree<T>::leftLeftCase(Node<T>* node){
 
     return rightRotation(node);
 
-};
+}
 
 template <class T>
 Node<T>* AVL_Tree<T>::leftRightCase(Node<T>* node){
@@ -264,7 +270,7 @@ Node<T>* AVL_Tree<T>::leftRightCase(Node<T>* node){
     node->left = leftRotation(node->left);
     return leftLeftCase(node);
 
-};
+}
 
 template <class T>
 Node<T>* AVL_Tree<T>::rightLeftCase(Node<T>* node){
@@ -272,14 +278,14 @@ Node<T>* AVL_Tree<T>::rightLeftCase(Node<T>* node){
     node->right = rightRotation(node->right);
     return rightRightCase(node);
 
-};
+}
 
 template <class T>
 Node<T>* AVL_Tree<T>::rightRightCase(Node<T>* node){
 
     return leftRotation(node);
 
-};
+}
 
 template <class T>
 Node<T>* AVL_Tree<T>::rightRotation(Node<T>* node){
@@ -291,7 +297,7 @@ Node<T>* AVL_Tree<T>::rightRotation(Node<T>* node){
     update(newParent);
     return newParent;
 
-};
+}
 
 template <class T>
 Node<T>* AVL_Tree<T>::leftRotation(Node<T>* node){
@@ -303,7 +309,7 @@ Node<T>* AVL_Tree<T>::leftRotation(Node<T>* node){
     update(newParent);
     return newParent;    
 
-};
+}
 
 template <class T>
 bool AVL_Tree<T>::deleteValue(T value){
@@ -318,7 +324,8 @@ bool AVL_Tree<T>::deleteValue(T value){
     }
     
     return false;
-};
+    
+}
 
 template <class T>
 Node<T>* AVL_Tree<T>::deleteValue(Node<T>* node, T value){
@@ -378,6 +385,31 @@ Node<T>* AVL_Tree<T>::deleteValue(Node<T>* node, T value){
 
     return rebalance(node);
 
-};
+}
+
+template <class T>
+bool AVL_Tree<T>::printTree(){
+
+    if(root == NULL)
+        return false;
+
+    return printTree(root);
+
+}
+
+template <class T>
+bool AVL_Tree<T>::printTree(Node<T>* node){
+
+    if(node == NULL)
+        return false;
+
+    int spacesCount = node->height;
+    for(int i = 0; i < spacesCount; i++){
+
+        std::cout << " ";
+
+    }
+
+}
 
 #endif
