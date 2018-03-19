@@ -24,7 +24,16 @@ int main(){
         randomisedInput = (rand() % 100) + 1;
 
         if(!avlTreeOfIntegers.insert(randomisedInput))
-            cout << "Error while inserting value: " << randomisedInput << endl;
+            cout << "Error while inserting value: " << randomisedInput << ". Value already exists in the tree, or value is null" << endl;
+
+    }
+
+    for(int i = 0; i < 100; i++){
+
+        randomisedInput = (rand() % 100) + 1;
+
+        if(!avlTreeOfIntegers.deleteValue(randomisedInput))
+            cout << "Error while deleting value: " << randomisedInput << ". Value doesn't exist in the tree, or value to delete is null" << endl;
 
     }
 
