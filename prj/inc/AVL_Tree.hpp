@@ -236,7 +236,7 @@ Node<T>* AVL_Tree<T>::rebalance(Node<T>* node){
 
     if(node->bf == -2){
 
-        if(node->left->bf >= 0)
+        if(node->left->bf <= 0)
             return leftLeftCase(node);
 
         else
