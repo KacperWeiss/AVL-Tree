@@ -10,7 +10,13 @@ void showMenu(){
 
     using namespace std;
 
-    cout    << "t - quick test of AVL_Tree" << endl
+    cout    << endl
+            << "s - check size of the tree" << endl
+            << "h - check height of the tree" << endl
+            << "c - check if tree contains value" << endl
+            << "i - insert new value" << endl
+            << "d - delete value" << endl
+            << "t - quick test of AVL_Tree" << endl
             << "m - show menu" << endl
             << "q - quit program" << endl
             << endl;
