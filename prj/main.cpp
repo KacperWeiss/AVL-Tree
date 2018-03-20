@@ -1,39 +1,31 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <cstring>
 #include "inc/node.hpp"
 #include "inc/AVL_Tree.hpp"
-
-using namespace std;
-
-void showMenu(){
-
-
-    
-}
+#include "inc/additionalFunctions.hpp"
 
 int main(){
 
-    AVL_Tree<int> avlTreeOfIntegers;
+    char selector;
 
-    srand(time(0));
-    int randomisedInput;
+    showMenu();
 
-    for(int i = 0; i < 100; i++){
+    while(selector != 'q'){
 
-        randomisedInput = (rand() % 100) + 1;
+        std::cout   << "Select action (m - show menu) > _\b";
+        std::cin    >> selector;
 
-        if(!avlTreeOfIntegers.insert(randomisedInput))
-            cout << "Error while inserting value: " << randomisedInput << ". Value already exists in the tree, or value is null" << endl;
+        if(strchr("tmq", selector)){
 
-    }
+            if(selector == 't')
+                quickTempTreeTest();
 
-    for(int i = 0; i < 100; i++){
+            else if(selector == 'm')
+                showMenu();
 
-        randomisedInput = (rand() % 100) + 1;
+            else if(selector == 'q')
+                std::cout << "Exiting program" << std::endl;
 
-        if(!avlTreeOfIntegers.deleteValue(randomisedInput))
-            cout << "Error while deleting value: " << randomisedInput << ". Value doesn't exist in the tree, or value to delete is null" << endl;
+        }
 
     }
 
