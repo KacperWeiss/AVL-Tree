@@ -101,7 +101,11 @@ class AVL_Tree {
         // - returns root of the tree
         Node<T>* deleteValue(Node<T>* node, T value);
 
-        bool printTree(Node<T>* node);
+        bool printTreePreOrder(Node<T>* node);
+
+        bool printTreeInOrder(Node<T>* node);
+
+        bool printTreePostOrder(Node<T>* node);
 
     public:
 
@@ -139,7 +143,13 @@ class AVL_Tree {
         bool deleteValue(T value);
 
         // Public method that shows tree structure
-        bool printTree();
+        bool printTreePreOrder();
+
+        // Public method that shows tree structure
+        bool printTreeInOrder();
+
+        // Public method that shows tree structure
+        bool printTreePostOrder();
 
 };
 
@@ -388,27 +398,74 @@ Node<T>* AVL_Tree<T>::deleteValue(Node<T>* node, T value){
 }
 
 template <class T>
-bool AVL_Tree<T>::printTree(){
+bool AVL_Tree<T>::printTreePreOrder(){
 
     if(root == NULL)
         return false;
 
-    return printTree(root);
+    return printTreePreOrder(root);
 
 }
 
 template <class T>
-bool AVL_Tree<T>::printTree(Node<T>* node){
+bool AVL_Tree<T>::printTreePreOrder(Node<T>* node){
 
     if(node == NULL)
         return false;
 
-    int spacesCount = node->height;
-    for(int i = 0; i < spacesCount; i++){
+    std::cout << node->data << std::endl;
+    printTreePreOrder(node->left);
+    printTreePreOrder(node->right);
 
-        std::cout << " ";
+    return true;
 
-    }
+}
+
+template <class T>
+bool AVL_Tree<T>::printTreeInOrder(){
+
+    if(root == NULL)
+        return false;
+
+    return printTreeInOrder(root);
+
+}
+
+template <class T>
+bool AVL_Tree<T>::printTreeInOrder(Node<T>* node){
+
+    if(node == NULL)
+        return false;
+
+    printTreeInOrder(node->left);
+    std::cout << node->data << std::endl;
+    printTreeInOrder(node->right);
+
+    return true;
+
+}
+
+template <class T>
+bool AVL_Tree<T>::printTreePostOrder(){
+
+    if(root == NULL)
+        return false;
+
+    return printTreePostOrder(root);
+
+}
+
+template <class T>
+bool AVL_Tree<T>::printTreePostOrder(Node<T>* node){
+
+    if(node == NULL)
+        return false;
+
+    printTreePostOrder(node->left);
+    printTreePostOrder(node->right);
+    std::cout << node->data << std::endl;
+
+    return true;
 
 }
 

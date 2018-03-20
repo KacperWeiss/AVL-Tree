@@ -33,6 +33,15 @@ void quickTempTreeTest(){
 
     }
 
+    std::cout << "Tree printed \"pre order\":" << std::endl;
+    tempAVLTreeOfIntegers.printTreePreOrder();
+
+    std::cout << "Tree printed \"in order\":" << std::endl;
+    tempAVLTreeOfIntegers.printTreeInOrder();
+
+    std::cout << "Tree printed \"post order\":" << std::endl;
+    tempAVLTreeOfIntegers.printTreePostOrder();
+
     for(int i = 0; i < 100; i++){
 
         randomisedInput = (rand() % 100) + 1;
