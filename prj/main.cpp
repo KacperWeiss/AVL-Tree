@@ -17,7 +17,7 @@ int main(){
         std::cout   << "Select action (m - show menu) > _\b";
         std::cin    >> selector;
 
-        if(strchr("schidtmq", selector)){
+        if(strchr("schidptmq", selector)){
 
             if(selector == 's')
                 std::cout << "Current tree size is: " << avlTreeOfIntegers.size() << std::endl;
@@ -54,6 +54,35 @@ int main(){
 
                 if(!avlTreeOfIntegers.deleteValue(value))
                     std::cout << "Error while deleting value: " << value << ". Value doesn't exist in the tree, or value to delete is null" << std::endl;
+
+            }
+
+            else if(selector == 'p'){
+
+                std::cout   << "Which kind of order do you want to print your tree?" << std::endl
+                            << "Select 1 for \"pre order \"\n"
+                            << "Select 2 for \"in order \"\n"
+                            << "Select 3 for \"post order \"\n"
+                            << "Your choice: _\b";
+                std::cin    >> selector;
+
+                if(strchr("123", selector)){
+
+                    if(selector == '1')
+                        avlTreeOfIntegers.printTreePreOrder();
+
+                    else if(selector == '2')
+                        avlTreeOfIntegers.printTreeInOrder();
+
+                    else if(selector == '3')
+                        avlTreeOfIntegers.printTreePostOrder();
+
+                }
+
+                else
+                    std::cout   << "Given selection is not correct" << std::endl;
+                
+                selector = ' ';
 
             }
 

@@ -16,6 +16,7 @@ void showMenu(){
             << "c - check if tree contains value" << endl
             << "i - insert new value" << endl
             << "d - delete value" << endl
+            << "p - print tree" << endl << endl
             << "t - quick test of AVL_Tree" << endl
             << "m - show menu" << endl
             << "q - quit program" << endl
