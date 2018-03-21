@@ -3,4 +3,5 @@ $ cat .gitignore
 *~
 obj/
 .vscode/
+dox/
 AVL-Tree
