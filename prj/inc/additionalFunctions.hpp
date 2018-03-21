@@ -1,11 +1,23 @@
 #ifndef ADDITIONAL_FUNCTIONS
 #define ADDITIONAL_FUNCTIONS
 
+/*!
+ * \file additionalFunctions.hpp
+ * 
+ * This file contains functions for main program
+ */
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include "AVL_Tree.hpp"
 
+/*!
+ * \brief Function that shows menu
+ * 
+ * Function that shows menu to an user, within itself it uses
+ * std namespace.
+ */
 void showMenu(){
 
     using namespace std;
@@ -24,6 +36,11 @@ void showMenu(){
     
 }
 
+/*!
+ * \brief Function that do quick test of AVL Tree
+ * 
+ * This function does basic test of AVL Tree methods using random integers
+ */
 void quickTempTreeTest(){
 
     AVL_Tree<int> tempAVLTreeOfIntegers;
@@ -36,7 +53,7 @@ void quickTempTreeTest(){
         randomisedInput = (rand() % 100) + 1;
 
         if(!tempAVLTreeOfIntegers.insert(randomisedInput))
-            std::cout << "Error while inserting value: " << randomisedInput << ". Value already exists in the tree, or value is null" << std::endl;
+            std::cout << "Value not inserted: " << randomisedInput << ". Value already exists in the tree, or value is null" << std::endl;
 
     }
 
@@ -54,7 +71,7 @@ void quickTempTreeTest(){
         randomisedInput = (rand() % 100) + 1;
 
         if(!tempAVLTreeOfIntegers.deleteValue(randomisedInput))
-            std::cout << "Error while deleting value: " << randomisedInput << ". Value doesn't exist in the tree, or value to delete is null" << std::endl;
+            std::cout << "Value not deleted: " << randomisedInput << ". Value doesn't exist in the tree, or value to delete is null" << std::endl;
 
     }
 
