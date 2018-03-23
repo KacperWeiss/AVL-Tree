@@ -9,6 +9,8 @@
  */
 
 #include <iostream>
+#include <cstring>
+#include <algorithm>
 #include "node.hpp"
 
 /*!
@@ -312,6 +314,27 @@ bool AVL_Tree<T>::contains(Node<T>* node, T value){
 
 }
 
+template <>
+bool AVL_Tree<std::string>::contains(Node<std::string>* node, std::string value){
+
+    if(node == NULL)
+        return false;
+
+    std::string tempV = value;
+    std::string tempND = node->data;
+
+    std::transform(tempV.begin(), tempV.end(), tempV.begin(), ::tolower);
+    std::transform(tempND.begin(), tempND.end(), tempND.begin(), ::tolower);    
+
+    if(tempV < tempND)
+        return contains(node->left, value);
+
+    if(tempV > tempND)
+        return contains(node->right, value);
+
+    return true;
+}
+
 template <class T>
 bool AVL_Tree<T>::contains(T value){
 
@@ -332,6 +355,29 @@ Node<T>* AVL_Tree<T>::insert(Node<T>* node, T value){
 
     else
         node->right = insert(node->right, value);
+
+    update(node);
+    return rebalance(node);
+
+}
+
+template<>
+Node<std::string>* AVL_Tree<std::string>::insert(Node<std::string>* node, std::string value){
+
+    if(node == NULL)
+        return new Node<std::string>(value);
+
+    std::string tempV = value;
+    std::string tempND = node->data;
+
+    std::transform(tempV.begin(), tempV.end(), tempV.begin(), ::tolower);
+    std::transform(tempND.begin(), tempND.end(), tempND.begin(), ::tolower);    
+
+    if(tempV < tempND)
+        return insert(node->left, value);
+
+    else
+        return insert(node->right, value);
 
     update(node);
     return rebalance(node);
@@ -503,6 +549,70 @@ Node<T>* AVL_Tree<T>::deleteValue(Node<T>* node, T value){
 
             Node<T>* temporaryNodePtr = node->left;
             T replacedNodeData = temporaryNodePtr->data;
+
+            while(temporaryNodePtr->right != NULL){
+
+                temporaryNodePtr = temporaryNodePtr->right;
+                replacedNodeData = temporaryNodePtr->data;
+
+            }
+
+            node->left = deleteValue(node->left, replacedNodeData);
+
+        }
+
+    }
+
+    update(node);
+
+    return rebalance(node);
+
+}
+
+template <>
+Node<std::string>* AVL_Tree<std::string>::deleteValue(Node<std::string>* node, std::string value){
+
+    if(node == NULL)
+        return NULL;
+
+    std::string tempV = value;
+    std::string tempND = node->data;
+
+    std::transform(tempV.begin(), tempV.end(), tempV.begin(), ::tolower);
+    std::transform(tempND.begin(), tempND.end(), tempND.begin(), ::tolower);    
+
+    if(tempV < tempND)
+        return deleteValue(node->left, value);
+
+    else if(tempV > tempND)
+        return deleteValue(node->right, value);
+
+    else{
+
+        if(node->left == NULL)
+            return node->right;
+
+        if(node->right == NULL)
+            return node->left;
+
+        if(node->bf >= 0){
+            
+            Node<std::string>* temporaryNodePtr = node->right;
+            std::string replacedNodeData = temporaryNodePtr->data;
+
+            while(temporaryNodePtr->left != NULL){
+
+                temporaryNodePtr = temporaryNodePtr->left;
+                replacedNodeData = temporaryNodePtr->data;
+
+            }
+
+            node->right = deleteValue(node->right, replacedNodeData);
+
+        } else {
+
+            Node<std::string>* temporaryNodePtr = node->left;
+            std::string replacedNodeData = temporaryNodePtr->data;
 
             while(temporaryNodePtr->right != NULL){
 
