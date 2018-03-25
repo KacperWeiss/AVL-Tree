@@ -11,6 +11,7 @@
 #include <iostream>
 #include <cstring>
 #include <algorithm>
+#include <typeinfo>
 #include "node.hpp"
 
 /*!
@@ -174,6 +175,7 @@ class AVL_Tree {
          * \param value - value to delete
          */
         Node<T>* deleteValue(Node<T>* node, T value);
+        
 
         /*!
          * \brief Private method to print tree pre order
@@ -374,10 +376,10 @@ Node<std::string>* AVL_Tree<std::string>::insert(Node<std::string>* node, std::s
     std::transform(tempND.begin(), tempND.end(), tempND.begin(), ::tolower);    
 
     if(tempV < tempND)
-        return insert(node->left, value);
+        node->left = insert(node->left, value);
 
     else
-        return insert(node->right, value);
+        node->right = insert(node->right, value);
 
     update(node);
     return rebalance(node);
@@ -388,6 +390,22 @@ template <class T>
 bool AVL_Tree<T>::insert(T value){
 
     if(value == NULL)
+        return false;
+
+    if(!contains(root, value)){
+        root = insert(root, value);
+        nodeCount++;
+        return true;
+    }
+
+    return false;
+
+}
+
+template <>
+bool AVL_Tree<std::string>::insert(std::string value){
+
+    if(value.empty())
         return false;
 
     if(!contains(root, value)){
@@ -491,22 +509,6 @@ Node<T>* AVL_Tree<T>::leftRotation(Node<T>* node){
     update(newParent);
     return newParent;    
 
-}
-
-template <class T>
-bool AVL_Tree<T>::deleteValue(T value){
-
-    if(value == NULL)
-        return false;
-
-    if(contains(root, value)){
-        root = deleteValue(root, value);
-        nodeCount--;
-        return true;
-    }
-    
-    return false;
-    
 }
 
 template <class T>
@@ -631,6 +633,38 @@ Node<std::string>* AVL_Tree<std::string>::deleteValue(Node<std::string>* node, s
 
     return rebalance(node);
 
+}
+
+template <class T>
+bool AVL_Tree<T>::deleteValue(T value){
+
+    if(value == NULL)
+        return false;
+
+    if(contains(root, value)){
+        root = deleteValue(root, value);
+        nodeCount--;
+        return true;
+    }
+    
+    return false;
+    
+}
+
+template <>
+bool AVL_Tree<std::string>::deleteValue(std::string value){
+
+    if(value.empty())
+        return false;
+
+    if(contains(root, value)){
+        root = deleteValue(root, value);
+        nodeCount--;
+        return true;
+    }
+    
+    return false;
+    
 }
 
 template <class T>

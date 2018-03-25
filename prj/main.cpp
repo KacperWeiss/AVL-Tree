@@ -5,103 +5,32 @@
 
 int main(){
 
-    AVL_Tree<int> avlTreeOfIntegers;
-
-    int value;
     char selector;
-
-    showMenu();
-
     while(selector != 'q'){
 
-        std::cout   << "Select action (m - show menu) > _\b";
-        std::cin    >> selector;
+        std::cout << " \"i\" - int, \"s\" - string, \"t\" - run test of AVL tree \"q\" - exit program \n";
+        std::cout << "Choose type of data: _\b";
+        std::cin >> selector;
 
-        if(strchr("schidptmq", selector)){
+        if(selector == 't'){
 
-            if(selector == 's')
-                std::cout << "Current tree size is: " << avlTreeOfIntegers.size() << std::endl;
+            quickTempTreeTest();
+            selector = 'q';
+            break;
 
-            else if(selector == 'c'){
+        } else if(selector == 'i'){
 
-                std::cout << "Please, give me value that you want to check in the tree\nValue: ";
-                std::cin >> value;
+            int tempVal = 0;
+            program(tempVal);
+            selector = 'q';
+            break;
 
-                if(avlTreeOfIntegers.contains(value))
-                    std::cout << "Current tree contains value: " << value << std::endl;
-                else
-                    std::cout << "Current tree does not contains value: " << value << std::endl;                
+        } else if(selector == 's') {
 
-            }
-            
-            else if(selector == 'h')
-                std::cout << "Current tree height is: " << avlTreeOfIntegers.height() << std::endl;
-
-            else if(selector == 'i'){
-
-                std::cout << "Please, give me value that you want to add to the tree\nValue: ";
-                std::cin >> value;
-
-                if(!avlTreeOfIntegers.insert(value))
-                    std::cout << "Error while inserting value: " << value << ". Value already exists in the tree, or value is null" << std::endl;
-
-            }
-
-            else if(selector == 'd'){
-
-                std::cout << "Please, give me value that you want to delete from the tree\nValue: ";
-                std::cin >> value;
-
-                if(!avlTreeOfIntegers.deleteValue(value))
-                    std::cout << "Error while deleting value: " << value << ". Value doesn't exist in the tree, or value to delete is null" << std::endl;
-
-            }
-
-            else if(selector == 'p'){
-
-                std::cout   << "Which kind of order do you want to print your tree?" << std::endl
-                            << "Select 1 for \"pre order \"\n"
-                            << "Select 2 for \"in order \"\n"
-                            << "Select 3 for \"post order \"\n"
-                            << "Your choice: _\b";
-                std::cin    >> selector;
-
-                if(strchr("123", selector)){
-
-                    if(selector == '1')
-                        avlTreeOfIntegers.printTreePreOrder();
-
-                    else if(selector == '2')
-                        avlTreeOfIntegers.printTreeInOrder();
-
-                    else if(selector == '3')
-                        avlTreeOfIntegers.printTreePostOrder();
-
-                }
-
-                else
-                    std::cout   << "Given selection is not correct" << std::endl;
-                
-                selector = ' ';
-
-            }
-
-            else if(selector == 't')
-                quickTempTreeTest();
-
-            else if(selector == 'm')
-                showMenu();
-
-            else if(selector == 'q')
-                std::cout << "Exiting program" << std::endl;
-
-        } else {
-
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
-            std::cerr << "Nieporawne polecenie\n";
-            selector = ' ';
-            showMenu();
+            std::string tempString = " ";
+            program(tempString);
+            selector = 'q';
+            break;
 
         }
 
