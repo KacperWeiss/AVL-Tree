@@ -683,7 +683,11 @@ bool AVL_Tree<T>::printTreePreOrder(Node<T>* node){
     if(node == NULL)
         return false;
 
+    for(int i = 0; i < node->height; i++){
+        std::cout << "   ";
+    }
     std::cout << node->data << std::endl;
+
     printTreePreOrder(node->left);
     printTreePreOrder(node->right);
 
@@ -708,7 +712,12 @@ bool AVL_Tree<T>::printTreeInOrder(Node<T>* node){
         return false;
 
     printTreeInOrder(node->left);
+
+    for(int i = 0; i < node->height; i++){
+        std::cout << "   ";
+    }
     std::cout << node->data << std::endl;
+
     printTreeInOrder(node->right);
 
     return true;
@@ -733,6 +742,10 @@ bool AVL_Tree<T>::printTreePostOrder(Node<T>* node){
 
     printTreePostOrder(node->left);
     printTreePostOrder(node->right);
+
+    for(int i = 0; i < node->height; i++){
+        std::cout << "   ";
+    }
     std::cout << node->data << std::endl;
 
     return true;
