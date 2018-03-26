@@ -42,7 +42,7 @@ void showMenu(){
  */
 void quickTempTreeTest(){
 
-    AVL_Tree<int> tempAVLTreeOfIntegers;
+    AVL_Tree<int> tempAVLTreeOfIntegers("TestRunLogs");
 
     srand(time(0));
     int randomisedInput;
@@ -51,8 +51,8 @@ void quickTempTreeTest(){
 
         randomisedInput = (rand() % 100) + 1;
 
-        if(!tempAVLTreeOfIntegers.insert(randomisedInput))
-            std::cout << "Value not inserted: " << randomisedInput << ". Value already exists in the tree, or value is null" << std::endl;
+        if(tempAVLTreeOfIntegers.insert(randomisedInput))
+            std::cout << "Inserted value: " << randomisedInput << std::endl;
 
     }
 
@@ -69,10 +69,13 @@ void quickTempTreeTest(){
 
         randomisedInput = (rand() % 100) + 1;
 
-        if(!tempAVLTreeOfIntegers.deleteValue(randomisedInput))
-            std::cout << "Value not deleted: " << randomisedInput << ". Value doesn't exist in the tree, or value to delete is null" << std::endl;
+        if(tempAVLTreeOfIntegers.deleteValue(randomisedInput))
+            std::cout << "Deleted value: " << randomisedInput << std::endl;
 
     }
+
+    std::cout << "Tree printed \"in order\":" << std::endl;
+    tempAVLTreeOfIntegers.printTreeInOrder();
 
 }
 
@@ -82,7 +85,6 @@ void quickTempTreeTest(){
  * Given temporary value this function decides which type of data will it use
  * and then run AVL Tree based on that.
  */
-
 template <class T>
 void program(T givenValue){
 

@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <typeinfo>
 #include "node.hpp"
+#include "logger.hpp"
 
 /*!
  * \brief AVL Tree class
@@ -27,6 +28,9 @@ class AVL_Tree {
 
         /*! Root node of the AVL_Tree */
         Node<T>* root;
+
+        /*! Logger for AVL_Tree */
+        Logger logger;
     
         /*! Variable solely for test purposes */
         int nodeCount;
@@ -213,7 +217,7 @@ class AVL_Tree {
     public:
 
         /*! Constructor creates new AVL_Tree with it's root set to null */
-        AVL_Tree(): root(NULL) {}
+        AVL_Tree(std::string logFileName = "defaultLogsFile.txt"): root(NULL), logger(logFileName), nodeCount(0) {}
 
         /*! Destructor for AVL Tree - it destructs all of the nodes by recursion */
         ~AVL_Tree(){ delete root; }
@@ -389,8 +393,12 @@ Node<std::string>* AVL_Tree<std::string>::insert(Node<std::string>* node, std::s
 template <class T>
 bool AVL_Tree<T>::insert(T value){
 
-    if(value == NULL)
+    if(value == NULL){
+
+        logger.logToFile("insert -> Passed value == null.");
         return false;
+
+    }
 
     if(!contains(root, value)){
         root = insert(root, value);
@@ -398,6 +406,7 @@ bool AVL_Tree<T>::insert(T value){
         return true;
     }
 
+    logger.logToFile("insert -> Passed value already exist in the tree.");
     return false;
 
 }
@@ -405,8 +414,12 @@ bool AVL_Tree<T>::insert(T value){
 template <>
 bool AVL_Tree<std::string>::insert(std::string value){
 
-    if(value.empty())
+    if(value.empty()){
+
+        logger.logToFile("insert -> Passed string is empty.");
         return false;
+
+    }
 
     if(!contains(root, value)){
         root = insert(root, value);
@@ -414,6 +427,7 @@ bool AVL_Tree<std::string>::insert(std::string value){
         return true;
     }
 
+    logger.logToFile("insert -> Passed string already exist in the tree.");
     return false;
 
 }
@@ -638,8 +652,12 @@ Node<std::string>* AVL_Tree<std::string>::deleteValue(Node<std::string>* node, s
 template <class T>
 bool AVL_Tree<T>::deleteValue(T value){
 
-    if(value == NULL)
+    if(value == NULL){
+
+        logger.logToFile("deleteValue -> Passed value == null.");
         return false;
+
+    }
 
     if(contains(root, value)){
         root = deleteValue(root, value);
@@ -647,6 +665,7 @@ bool AVL_Tree<T>::deleteValue(T value){
         return true;
     }
     
+    logger.logToFile("deleteValue -> Passed value does not exist in the tree.");
     return false;
     
 }
@@ -654,8 +673,12 @@ bool AVL_Tree<T>::deleteValue(T value){
 template <>
 bool AVL_Tree<std::string>::deleteValue(std::string value){
 
-    if(value.empty())
+    if(value.empty()){
+
+        logger.logToFile("deleteValue -> Passed string is empty.");
         return false;
+
+    }
 
     if(contains(root, value)){
         root = deleteValue(root, value);
@@ -663,6 +686,7 @@ bool AVL_Tree<std::string>::deleteValue(std::string value){
         return true;
     }
     
+    logger.logToFile("deleteValue -> Passed string does not exist in the tree.");
     return false;
     
 }
