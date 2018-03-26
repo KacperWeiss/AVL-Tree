@@ -5,7 +5,7 @@
 
 int main(){
 
-    char selector;
+    char selector = '\0';
     while(selector != 'q'){
 
         std::cout << " \"i\" - int, \"s\" - string, \"t\" - run test of AVL tree \"q\" - exit program \n";

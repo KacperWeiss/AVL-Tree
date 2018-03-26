@@ -541,11 +541,12 @@ Node<T>* AVL_Tree<T>::deleteValue(Node<T>* node, T value){
 
     else{
 
-        if(node->left == NULL)
-            return node->right;
+        if(node->left == NULL && node->right == NULL){
 
-        if(node->right == NULL)
-            return node->left;
+            delete node;
+            return NULL;
+
+        }
 
         if(node->bf >= 0){
             
@@ -598,18 +599,19 @@ Node<std::string>* AVL_Tree<std::string>::deleteValue(Node<std::string>* node, s
     std::transform(tempND.begin(), tempND.end(), tempND.begin(), ::tolower);    
 
     if(tempV < tempND)
-        return deleteValue(node->left, value);
+        node->left = deleteValue(node->left, value);
 
     else if(tempV > tempND)
-        return deleteValue(node->right, value);
+        node->right = deleteValue(node->right, value);
 
     else{
+        
+        if(node->left == NULL && node->right == NULL){
 
-        if(node->left == NULL)
-            return node->right;
+            delete node;
+            return NULL;
 
-        if(node->right == NULL)
-            return node->left;
+        }
 
         if(node->bf >= 0){
             
