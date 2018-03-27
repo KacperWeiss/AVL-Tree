@@ -15,6 +15,7 @@ int main(){
         if(selector == 't'){
 
             quickTempTreeTest();
+            runTimeTest();
             selector = 'q';
             break;
 

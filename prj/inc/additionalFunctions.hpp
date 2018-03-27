@@ -80,6 +80,36 @@ void quickTempTreeTest(){
 }
 
 /*!
+ * \brief Function that do quick speed test of AVL Tree
+ * 
+ * This function does basic test of AVL Tree insert and deleteValue methods using 1000 integers
+ */
+void runTimeTest(){
+
+    AVL_Tree<int> tempAVLTreeOfIntegers("SpeedTestRunLogs");
+
+    clock_t start = clock();
+
+    for(int i = 0; i < 100000; i++){
+
+       tempAVLTreeOfIntegers.insert(i);
+
+    }
+
+    std::cout << "Insert run time for 100000 elements: " << (clock() - start)*1000/CLOCKS_PER_SEC << "ms\n";
+    start = clock();
+
+    for(int i = 0; i < 10000; i++){
+
+       tempAVLTreeOfIntegers.deleteValue(i);
+
+    }
+
+    std::cout << "Delete run time for 100000 elements: " << (clock() - start)*1000/CLOCKS_PER_SEC << "ms\n";
+
+}
+
+/*!
  * \brief This function is main function of whole program.
  * 
  * Given temporary value this function decides which type of data will it use
