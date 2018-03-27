@@ -99,7 +99,7 @@ void runTimeTest(){
     std::cout << "Insert run time for 100000 elements: " << (clock() - start)*1000/CLOCKS_PER_SEC << "ms\n";
     start = clock();
 
-    for(int i = 0; i < 10000; i++){
+    for(int i = 0; i < 100000; i++){
 
        tempAVLTreeOfIntegers.deleteValue(i);
 
