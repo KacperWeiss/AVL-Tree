@@ -1,4 +1,3 @@
 Created by: Kacper Weiss
 
-This is AVL-Tree program, I created it for my University project.
-Deadline for this project is 28.03.2018r.
+Implementation of self-balancing binary search tree (AVL) with basic operations (insertion, deletion), traversals (Inorder, Preorder and Postorder).
